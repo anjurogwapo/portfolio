@@ -1,0 +1,671 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Kolker+Brush&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================
+   CUSTOM FONT (DUKEPLUS)
+========================= */
+@font-face {
+  font-family: 'DukePlus';
+  src: url('/fonts/DUKEPLUS.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  --radius: 0.625rem;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+}
+
+/* =========================
+   BASE STYLES
+========================= */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: black;
+    overflow-x: hidden;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* =========================
+   SHIMMER TEXT
+========================= */
+.shimmer-text {
+  background: linear-gradient(
+    120deg,
+    #FFBF00 0%,
+    #FFD54F 20%,
+    #FFF4B0 40%,
+    #ffffff 50%,
+    #FFF4B0 60%,
+    #FFD54F 80%,
+    #FFBF00 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerMove 4s linear infinite;
+}
+
+@keyframes shimmerMove {
+  0% { background-position: -250% center; }
+  100% { background-position: 250% center; }
+}
+
+/* =========================
+   HELLO GLOW
+========================= */
+.hello-glow {
+  transition: all 0.3s ease;
+}
+
+.hello-glow:hover {
+  transform: scale(1.03);
+  color: #ffe066;
+  text-shadow:
+    0 0 5px #ffe066,
+    0 0 15px #ffe066,
+    0 0 30px #ffe066;
+}
+
+/* =========================
+   GLASS BOX (FINAL WORKING VERSION)
+========================= */
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+
+  position: relative;
+  overflow: visible;
+
+  transition: all 0.5s ease;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.6),
+    0 0 25px rgba(255,255,255,0.08);
+}
+
+/* glow layer */
+.glass-box::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(255,255,255,0.22),
+    transparent 60%
+  );
+
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  filter: blur(25px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* content above glow */
+.glass-box > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* hover effect */
+.glass-box:hover {
+  transform: scale(1.06);
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 0 40px rgba(255,255,255,0.25),
+    0 0 90px rgba(255,255,255,0.15),
+    0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* activate glow */
+.glass-box:hover::before {
+  opacity: 1;
+}
+
+/* image effect */
+.glass-box img {
+  transition: all 0.5s ease;
+}
+
+.glass-box:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.2) contrast(1.1) saturate(1.15);
+}
+
+/* text effect */
+.glass-box p {
+  transition: all 0.3s ease;
+}
+
+.glass-box:hover p {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.35);
+}
+
+/* =========================
+   ORANGE GLOW BUTTONS
+========================= */
+.glow-orange:hover {
+  box-shadow:
+    0 0 10px rgba(255, 136, 0, 0.4),
+    0 0 20px rgba(255, 136, 0, 0.5),
+    0 0 40px rgba(255, 136, 0, 0.6);
+}
+.glass-frame {
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.08),
+    0 0 60px rgba(255,255,255,0.06),
+    inset 0 0 30px rgba(255,255,255,0.03);
+}
+
+/* =========================
+   GLASS FRAME WITH GLOW
+========================= */
+.glass-frame {
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.041);
+  border-radius: 32px;
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.08),
+    0 0 60px rgba(255,255,255,0.06),
+    inset 0 0 30px rgba(255,255,255,0.03);
+}
+
+/* Glowing white outline effect */
+.glass-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  padding: 1.5px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.12)
+  );
+
+  -webkit-mask:
+    linear-gradient(#ffffff59 0 0) content-box,
+    linear-gradient(#ffffff3b 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0.18; /* 👈 MAIN CONTROL (lower = more subtle) */
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,0.10),
+    0 0 18px rgba(255,255,255,0.06);
+
+  pointer-events: none;
+}
+/* =========================
+   REAL STRONG BLINKING GLOW
+========================= */
+
+.topl-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 1200px;
+  height: 600px;
+
+  background: radial-gradient(
+    circle at top left,
+    rgba(255,255,255,0.9),
+    rgba(255,255,255,0.35),
+    transparent 70%
+  );
+
+  filter: blur(40px);
+  opacity: 0.4;
+
+  animation: toplGlowPulse 2.2s infinite ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes toplGlowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.9;
+  }
+}
+/* =========================================
+   BOTTOM PNG STICKING TO OUTLINE
+========================================= */
+.bottom-outline-decor {
+  position: absolute;
+
+  /* POSITION */
+  bottom: -160px;
+  right: -60px;
+
+  z-index: 50;
+  pointer-events: none;
+
+  /* helps smooth animation rendering */
+  will-change: transform;
+}
+
+/* =========================
+   MAIN IMAGE
+========================= */
+.bottom-outline-image {
+  width: 520px;
+  height: auto;
+
+  object-fit: contain;
+  position: relative;
+  z-index: 3;
+
+  animation: floatSlow 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* =========================
+   STRONG GLOW LAYER
+========================= */
+.bottom-outline-glow {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+
+  transform: translateX(-50%);
+
+  width: 110%;
+  height: 140px;
+
+  border-radius: 999px;
+
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,0.6) 25%,
+    rgba(255,255,255,0.2) 60%,
+    transparent 100%
+  );
+
+  filter: blur(35px);
+
+  animation: glowPulse 4s ease-in-out infinite;
+
+  z-index: 1;
+}
+
+/* =========================
+   GLOW PULSE ANIMATION
+========================= */
+@keyframes glowPulse {
+  0% {
+    opacity: 0.25;
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.25);
+  }
+
+  100% {
+    opacity: 0.25;
+    transform: translateX(-50%) scale(0.95);
+  }
+}
+
+/* =========================
+   FLOAT ANIMATION (IMAGE)
+========================= */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.font-righteous {
+  font-family: 'Righteous', cursive;
+}
+
+.lava-1,
+.lava-2,
+.lava-3 {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  filter: blur(120px);
+}
+
+.lava-1 {
+  top: -200px;
+  left: -200px;
+  animation: floatBlob 20s infinite alternate ease-in-out;
+}
+
+.lava-2 {
+  top: 30%;
+  right: -200px;
+  animation: floatBlob 28s infinite alternate ease-in-out;
+}
+
+.lava-3 {
+  bottom: -250px;
+  left: 20%;
+  animation: floatBlob 24s infinite alternate ease-in-out;
+}
+
+@keyframes floatBlob {
+  from {
+    transform: translate(0,0) scale(1);
+  }
+  to {
+    transform: translate(250px,-200px) scale(1.5);
+  }
+}
+
+.custom-scroll {
+  scroll-behavior: smooth;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 999px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.35);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.6);
+}
+
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.4) transparent;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+
+  animation:
+    floatImage 7s ease-in-out infinite,
+    pulseGlow 4s ease-in-out infinite;
+
+  transform-origin: center;
+  will-change: transform, filter;
+}
+
+/* Floating + breathing */
+@keyframes floatImage {
+
+  0% {
+    transform:
+      translateY(0px)
+      scale(1)
+      rotate(-0.6deg);
+  }
+
+  25% {
+    transform:
+      translateY(-10px)
+      scale(1.015)
+      rotate(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-18px)
+      scale(1.03)
+      rotate(0.6deg);
+  }
+
+  75% {
+    transform:
+      translateY(-8px)
+      scale(1.015)
+      rotate(0deg);
+  }
+
+  100% {
+    transform:
+      translateY(0px)
+      scale(1)
+      rotate(-0.6deg);
+  }
+}
+
+/* Soft bloom */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+
+    filter:
+      drop-shadow(0 0 10px rgba(255,255,255,.10))
+      drop-shadow(0 0 25px rgba(255,255,255,.08))
+      drop-shadow(0 0 45px rgba(255,255,255,.05));
+
+  }
+
+  50% {
+
+    filter:
+      drop-shadow(0 0 18px rgba(255,255,255,.20))
+      drop-shadow(0 0 38px rgba(255,255,255,.14))
+      drop-shadow(0 0 70px rgba(255,255,255,.08));
+
+  }
+
+}
+
+
+
+/* =========================
+   ABOUT ME GIF
+========================= */
+
+.about-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* desktop size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* glow behind image */
+.about-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.15) 35%,
+    transparent 75%
+  );
+
+  filter: blur(50px);
+
+  animation: glowPulse 4s ease-in-out infinite;
+
+  z-index: 0;
+}
+
+.about-image {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 500px;
+
+  height: auto;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 25px rgba(255,255,255,.25))
+    drop-shadow(0 0 50px rgba(255,255,255,.15));
+
+  transition: all .4s ease;
+}
+
+.about-image:hover {
+  transform: scale(1.03);
+}
+
+/* floating animation */
+.animate-float {
+  animation: floatImage 6s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes glowPulse {
+  0%,100% {
+    opacity: .7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .about-wrapper {
+    max-width: 320px;
+    margin-top: 2rem;
+  }
+
+  .about-image {
+    max-width: 320px;
+  }
+}
+
+
+
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  background: radial-gradient(
+    circle 150px at var(--x, 50%) var(--y, 50%),
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
