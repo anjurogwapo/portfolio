@@ -569,8 +569,8 @@ function ScrollReveal({ children, className = '', delay = 0 }) {
 const handleDownloadResume = () => {
   // REPLACE '/resume.pdf' WITH YOUR ACTUAL RESUME FILE PATH
   const link = document.createElement('a');
-  link.href = '/images/chimanjuroCV.pdf';
-  link.download = 'Chimanjurocv.pdf';
+  link.href = '/images/chimanjurocv.pdf';
+  link.download = 'chimanjurocv.pdf';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

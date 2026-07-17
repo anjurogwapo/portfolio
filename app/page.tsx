@@ -39,7 +39,7 @@ export default function Home() {
       )}
 
       {!showLoading && (
-        <main className="min-h-screen bg-black text-white relative overflow-hidden">
+        <main className="min-h-screen bg-black text-white relative overflow-x-hidden">
 
           {/* SIDE GIFS */}
           <div className="hidden md:block fixed left-0 top-0 h-screen w-24 md:w-36 lg:w-48 opacity-30 pointer-events-none z-0">
@@ -169,8 +169,7 @@ export default function Home() {
             ========================================= */
             .specialty-card {
               position: relative;
-              height: 380px;
-              overflow: hidden;
+              min-h-80 overflow: hidden;
               background: rgba(255, 255, 255, 0.03);
               backdrop-filter: blur(10px);
               -webkit-backdrop-filter: blur(10px);
@@ -192,12 +191,24 @@ export default function Home() {
 
             .specialty-card-image {
               width: 100%;
-              height: 260px;
+              height: 200px;
               background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
               border-radius: 8px;
               margin-bottom: 12px;
               overflow: hidden;
               position: relative;
+            }
+
+            @media (min-width: 640px) {
+              .specialty-card-image {
+                height: 260px;
+              }
+            }
+
+            @media (min-width: 1024px) {
+              .specialty-card-image {
+                height: 280px;
+              }
             }
 
             .specialty-card-image img {
@@ -289,7 +300,7 @@ export default function Home() {
                HERO SECTION - STICKY AT TOP
                ADJUST HEIGHT: Change 'h-[700px]' or 'pt-20 pb-20' to resize container
             ========================================= */}
-           <section className="pt-0 pb-16 md:pb-24 px-2 flex justify-center sticky-hero">
+           <section className="pt-8 pb-12 md:pb-24 px-2 sm:px-4 flex justify-center sticky-hero">
 
               {/* GLASS FRAME - GLOWING OUTLINE ONLY */}
                <div className="w-full max-w-6xl glass-frame">
@@ -302,7 +313,7 @@ export default function Home() {
     <img
       src="/images/bottom.png"
       alt="bottom glow"
-      className="w-[450px] md:w-[600px] lg:w-[750px] object-contain opacity-80 blur-md"
+      className="w-[300px] sm:w-[400px] md:w-[600px] lg:w-[750px] object-contain opacity-80 blur-md"
       style={{
         filter:
           "drop-shadow(0 0 25px rgba(255, 255, 255, 0.32)) drop-shadow(0 0 60px rgba(255,255,255,0.3))",
@@ -314,14 +325,14 @@ export default function Home() {
   <img
     src="/images/bottom.png"
     alt="bottom decoration"
-    className="w-[450px] md:w-[600px] lg:w-[750px] object-contain relative z-[82] animate-pulse-slow"
+    className="w-[300px] sm:w-[400px] md:w-[600px] lg:w-[750px] object-contain relative z-[82] animate-pulse-slow"
   />
 </div>
 
 
-                <div className="relative z-10 px-10 py-5 md:px-14 md:py-6">
+                <div className="relative z-10 px-4 py-4 sm:px-6 md:px-14 md:py-6">
 
-                   <div className="grid lg:grid-cols-2 gap-6 items-center">
+                   <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-center">
 
                     {/* LEFT SIDE - CONTENT */}
                     <motion.div
@@ -333,11 +344,11 @@ export default function Home() {
 
                       <motion.img
                         src="/images/logomove.gif"
-                       className="w-44 md:w-64 mb-6 self-start md:self-auto -ml-8 md:ml-0"
+                       className="w-32 sm:w-44 md:w-64 mb-4 md:mb-6 self-start md:self-auto"
                         alt="logo"
                       />
 
-                      <span className="block text-4xl md:text-5xl font-bold mb-2">
+                      <span className="block text-2xl sm:text-3xl md:text-5xl font-bold mb-2">
                         Hello I am
                       </span>
 
@@ -349,14 +360,14 @@ export default function Home() {
                           inline-block
                           leading-[0.9]
                           tracking-wide
-                          text-[4.5rem] md:text-[6.5rem] lg:text-[7.5rem]
-                          whitespace-nowrap
+                          text-3xl sm:text-4xl md:text-5xl lg:text-[7.5rem]
+                          break-words
                         `}
                       >
                         Chim Anjuro
                       </span>
 
-                    <p className="text-gray-300 mt-6 mb-6 leading-relaxed">
+                    <p className="text-gray-300 mt-4 md:mt-6 mb-4 md:mb-6 leading-relaxed text-sm sm:text-base">
   I&apos;m someone who sees meaning in the quiet details of life.
   <br />
   <span className="block mt-2">
@@ -364,21 +375,22 @@ export default function Home() {
   </span>
 </p>
 
-                      <p className={`text-2xl font-bold mb-8 ${righteous.className} glow-text`}>
+                      <p className={`text-lg sm:text-xl md:text-2xl font-bold mb-6 md:mb-8 ${righteous.className} glow-text`}>
                         I KNOW YOU NEED ME
                       </p>
 
                       {/* CTA BUTTON */}
                       <motion.a
-  href="/images/chimanjuroCV.pdf"
-  download="chimanjuroCV.pdf"
+  href="/images/chimanjurocv.pdf"
+  download="chimanjurocv.pdf"
   className="
     inline-block
-    px-8 py-4
+    px-6 sm:px-8 py-3 md:py-4
     bg-white/10
     border border-white/20
     rounded-lg
     transition-all
+    text-sm sm:text-base
   "
   whileHover={{
     boxShadow:
@@ -399,7 +411,7 @@ export default function Home() {
                     
 
                     <motion.div
-  className="flex justify-center md:justify-end md:-mr-16"
+  className="flex justify-center md:justify-end md:-mr-16 mt-8 md:mt-0"
   initial={{ opacity: 0, x: 50 }}
   whileInView={{ opacity: 1, x: 0 }}
   transition={{ duration: 0.8 }}
@@ -409,9 +421,8 @@ export default function Home() {
   src="/images/pp.gif"
   alt="profile"
   className="
-    h-[420px] sm:h-[520px] md:h-[700px]
+    h-[280px] sm:h-[380px] md:h-[600px] lg:h-[700px]
     object-contain
-
     mx-auto md:mx-0
     md:ml-auto md:-mr-20
   "
@@ -443,7 +454,7 @@ export default function Home() {
             
             
             {/* MARQUEE SECTION */}
-            <section className="py-10 border-y border-white/10">
+            <section className="py-8 md:py-10 border-y border-white/10 px-2">
               <div className="kinetic-marquee text-white">
                 <KineticMarquee
                   text="✦ MODELING • ACTING • FILM • DESIGN • DEVELOPMENT • CONTENT CREATION • PHOTOGRAPHY • VIDEO EDITING ✦"
@@ -455,9 +466,9 @@ export default function Home() {
       
 
             {/* HOME.GIF GLASS SECTION */}
-            <section className="py-16 flex justify-center">
+            <section className="py-12 md:py-16 flex justify-center px-4">
 
-              <div className="glass-box w-[85%] md:w-[60%] lg:w-[45%] p-4 md:p-6">
+              <div className="glass-box w-full sm:w-[90%] md:w-[70%] lg:w-[45%] p-3 sm:p-4 md:p-6">
 
                 {/* IMAGE */}
                 <img
@@ -470,11 +481,12 @@ export default function Home() {
                 <p
                   className={`
                     text-center
-                    mt-5
+                    mt-4 md:mt-5
                     text-white/70
                     tracking-widest
                     animate-pulse
                     transition
+                    text-xs sm:text-sm md:text-base
                     ${righteous.className}
                   `}
                 >
@@ -489,17 +501,18 @@ export default function Home() {
    ABOVE Scroll To Explore
 ====================================== */}
 
-<section className="pb-8 flex flex-col items-center">
+<section className="pb-6 md:pb-8 flex flex-col items-center">
 
   <AnjuroLogo3D />
 
   <p
     className={`
       text-center
-      mt-5
+      mt-4 md:mt-5
       text-white/70
       tracking-[0.4em]
       animate-pulse
+      text-xs sm:text-sm
       ${righteous.className}
     `}
   >
@@ -510,15 +523,15 @@ export default function Home() {
 
         
 {/* WHAT I CAN ASSURE YOU SECTION */}
-<section className="py-20 px-4">
+<section className="py-12 md:py-20 px-4">
   <div className="max-w-6xl mx-auto">
 
-    <h2 className={`text-4xl md:text-5xl text-center mb-16 ${righteous.className} glow-text`}>
+    <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center mb-8 md:mb-16 ${righteous.className} glow-text`}>
       {/* adjust heading size here */}
       What I Can Assure You
     </h2>
 
-    <div className="grid md:grid-cols-3 gap-8">
+    <div className="grid md:grid-cols-3 gap-4 md:gap-8">
 
       {[
         {
@@ -539,23 +552,23 @@ export default function Home() {
       ].map((t, i) => (
         <div
           key={i}
-          className="p-6 rounded-xl border border-white/10 bg-black hover:bg-black hover:border-white/30 transition-all duration-300"
+          className="p-4 md:p-6 rounded-xl border border-white/10 bg-black hover:bg-black hover:border-white/30 transition-all duration-300"
         >
           <img
             src="/images/logomove.gif"
-            className="w-20 mb-4"
+            className="w-16 md:w-20 mb-4"
             alt="assurance"
           />
 
-          <p className="text-gray-300 italic leading-relaxed">
+          <p className="text-gray-300 italic leading-relaxed text-sm md:text-base">
             &quot;{t.text}&quot;
           </p>
 
-          <p className="text-orange-400 font-semibold mt-6 text-lg">
+          <p className="text-orange-400 font-semibold mt-4 md:mt-6 text-base md:text-lg">
             {t.title}
           </p>
 
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-xs md:text-sm">
             {t.subtitle}
           </p>
         </div>
@@ -568,15 +581,15 @@ export default function Home() {
 {/* =========================================
    MY SPECIALTIES - PREMIUM PHOTO CARD DESIGN
 ========================================= */}
-<section className="py-20 px-4">
+<section className="py-12 md:py-20 px-4">
   <div className="max-w-6xl mx-auto">
 
-    <h2 className={`text-4xl md:text-5xl text-center mb-16 ${righteous.className} glow-text`}>
+    <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center mb-8 md:mb-16 ${righteous.className} glow-text`}>
     
       What I Can Offer 
     </h2>
 
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
 
       {[
         {
@@ -621,13 +634,13 @@ export default function Home() {
         >
 
           {/* PHOTO */}
-          <div className="p-4 pb-0">
+          <div className="p-3 sm:p-4 pb-0">
             <div className="relative overflow-hidden rounded-3xl">
 
               <img
                 src={s.image}
                 alt={s.title}
-                className="h-[380px] w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                className="h-[220px] sm:h-[280px] md:h-[320px] lg:h-[380px] w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
               />
 
               {/* DARK OVERLAY */}
@@ -637,13 +650,13 @@ export default function Home() {
           </div>
 
           {/* CONTENT */}
-          <div className="p-6">
+          <div className="p-4 md:p-6">
 
-            <h3 className="mb-3 text-2xl font-bold text-white transition-colors group-hover:text-orange-300">
+            <h3 className="mb-2 md:mb-3 text-lg md:text-2xl font-bold text-white transition-colors group-hover:text-orange-300">
               {s.title}
             </h3>
 
-            <p className="leading-relaxed text-gray-400">
+            <p className="leading-relaxed text-gray-400 text-sm md:text-base">
               {s.desc}
             </p>
 
@@ -658,24 +671,25 @@ export default function Home() {
 </section>
 
 {/* CTA SECTION */}
-<section className="py-20 text-center">
+<section className="py-12 md:py-20 text-center px-4">
   <h2
-    className={`text-5xl mb-8 chrome-text glow-text ${righteous.className}`}
+    className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 md:mb-8 chrome-text glow-text ${righteous.className}`}
   >
     Explore My Work
   </h2>
 
-  <div className="flex gap-5 justify-center flex-wrap">
+  <div className="flex gap-3 sm:gap-5 justify-center flex-wrap">
     <Link
       href="/services"
       className="
-        px-8 py-4
+        px-6 sm:px-8 py-2 sm:py-4
         rounded-full
         border border-white/20
         bg-white/5
         backdrop-blur-md
         text-white
         transition-all duration-500
+        text-sm sm:text-base
 
         hover:bg-white/10
         hover:border-white/60
@@ -692,13 +706,14 @@ export default function Home() {
     <Link
       href="/projects"
       className="
-        px-8 py-4
+        px-6 sm:px-8 py-2 sm:py-4
         rounded-full
         border border-white/20
         bg-white/10
         backdrop-blur-md
         text-white
         transition-all duration-500
+        text-sm sm:text-base
 
         hover:bg-white/20
         hover:border-white

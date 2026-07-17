@@ -9,7 +9,7 @@ interface LoadingScreenProps {
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   return (
     <motion.div
-      className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden"
+      className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden px-4"
       style={{
         fontFamily:
           'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -37,11 +37,11 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       <div className="absolute inset-0 bg-black/80" />
 
       {/* CONTENT */}
-      <div className="text-center relative z-10">
+      <div className="text-center relative z-10 w-full max-w-md">
         
         {/* LOGO */}
         <motion.div
-          className="w-97 h-97 mx-auto relative flex items-center justify-center"
+          className="w-56 h-56 sm:w-80 sm:h-80 md:w-96 md:h-96 mx-auto relative flex items-center justify-center"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{
@@ -66,7 +66,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         </motion.div>
 
         <motion.p
-          className="text-white-400/80 text-lg tracking-widest"
+          className="text-white/80 text-sm sm:text-base md:text-lg tracking-widest px-2 mt-4 sm:mt-6"
           style={{
             fontFamily:
               'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -76,18 +76,18 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          ✧YOU'VE FOUND THE COOLEST KID✧
+          ✧YOU&apos;VE FOUND THE COOLEST KID✧
         </motion.p>
 
         {/* LOADING BAR CONTAINER */}
         <motion.div
-          className="mt-8 flex flex-col items-center gap-6"
+          className="mt-6 sm:mt-8 flex flex-col items-center gap-4 sm:gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
           {/* NEON GLOWING LOADING BAR */}
-          <div className="relative w-64 h-2 rounded-full overflow-hidden">
+          <div className="relative w-48 sm:w-56 md:w-64 h-2 rounded-full overflow-hidden">
             {/* Outer glow effect */}
             <div
               className="absolute inset-0 rounded-full"
@@ -116,17 +116,16 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
           {/* ENHANCED DISCLAIMER TEXT */}
           <motion.div
-            className="mt-4 max-w-sm"
+            className="mt-3 sm:mt-4 max-w-xs sm:max-w-sm px-2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4, duration: 0.8 }}
           >
             <p
-              className="text-white/60 text-sm font-light tracking-wide leading-relaxed"
+              className="text-white/60 text-xs sm:text-sm font-light tracking-wide leading-relaxed"
               style={{
                 fontFamily: "'Inter', 'Segoe UI', sans-serif",
                 fontWeight: 300,
-                fontSize: '13px',
                 letterSpacing: '0.05em',
               }}
             >

@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Righteous } from 'next/font/google';
+import { Righteous, Poppins } from 'next/font/google';
 import { PillNavbar } from '@/app/components/PillNavbar';
 import { Footer } from '@/app/components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const righteous = Righteous({ weight: ['400'], subsets: ['latin'] });
+const poppins = Poppins({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] });
 
 // BACKGROUND IMAGE 1 - Hero Section (Experience + Scroll to Explore)
 const BACKGROUND_IMAGE_HERO_SCROLL = '/images/experiencebg1.gif';
@@ -105,7 +106,7 @@ const seminarsWorkshops = [
   },
 ];
 
-// Tools data - REPLACE IMAGE URLS WITH YOUR LOGO.PNG FILES
+// Tools data
 const toolsData = [
   {
     category: 'For Codes',
@@ -161,10 +162,32 @@ const toolsData = [
 
 // Enhanced Underline Animation Component
 function UnderlineAnimation({ children }) {
+  const underlineRef = useRef(null);
+
+  useEffect(() => {
+    if (underlineRef.current) {
+      const underline = underlineRef.current;
+      gsap.fromTo(
+        underline,
+        { scaleX: 0, transformOrigin: 'center' },
+        {
+          scaleX: 1,
+          duration: 1.2,
+          delay: 0.3,
+          ease: 'power2.inOut',
+        }
+      );
+    }
+  }, []);
+
   return (
     <div className="relative inline-block">
       {children}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent rounded-full origin-left animate-underline-expand-enhanced" />
+      <div
+        ref={underlineRef}
+        className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent rounded-full"
+        style={{ transformOrigin: 'center' }}
+      />
     </div>
   );
 }
@@ -187,31 +210,10 @@ function TypingAnimation({ text }) {
     return () => clearInterval(interval);
   }, [text]);
 
- return (
-  <span style={{ whiteSpace: 'pre-line' }}>
-    {displayedText}
-  </span>
-
-);
-}
-
-// Wave Animation Component
-function WaveAnimation({ text }) {
   return (
-    <div className="inline-block">
-      {text.split('').map((char, index) => (
-        <span
-          key={index}
-          className="inline-block"
-          style={{
-            animation: `wave 2s ease-in-out infinite`,
-            animationDelay: `${index * 0.1}s`,
-          }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
-    </div>
+    <span style={{ whiteSpace: 'pre-line' }}>
+      {displayedText}
+    </span>
   );
 }
 
@@ -507,7 +509,7 @@ export default function ExperiencePage() {
     <>
       <PillNavbar />
       
-      {/* HEADER SECTION WITH BACKGROUND IMAGE 1 - CENTERED HEADER */}
+      {/* HEADER SECTION WITH BACKGROUND IMAGE 1 */}
       <section
         className="py-8 sm:min-h-screen sm:flex sm:items-center justify-center text-white relative pt-0 sm:pt-2 md:pt-4"
         style={{
@@ -520,81 +522,52 @@ export default function ExperiencePage() {
       >
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)' }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full text-center flex flex-col items-center justify-center">
-          {/* Anjuro Logo with Glow Effect - Larger on mobile */}
-          {/* 
-            MOBILE LOGO SPACING ADJUSTMENT:
-            To make the logo closer or farther from "Experience" text on mobile, adjust the 'mb-2' value below.
-            Current: mb-2 (mobile), sm:-mb-14 (tablet/desktop)
-            Try these values for mobile: -mb-4, -mb-6, -mb-8, -mb-10 (negative values bring it closer)
-            Or: mb-4, mb-6, mb-8 (positive values push it down)
-          */}
-   <div className="flex justify-center mt-16 sm:-mt-16 -mb-2 sm:-mb-12">
-  <div className="animate-logo-glow">
-    <img
-  src="/images/anjurologo.png"
-  alt="Anjuro Logo"
-  className="h-60 sm:h-72 md:h-72 lg:h-[19rem] object-contain drop-shadow-lg"
-/>
-
-  </div>
-</div>
-
-         <h1
-  className={`${righteous.className} relative inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg mb-3 sm:mb-2 hero-title`}
->
-  Experience
-</h1>
-
-          {/* Enhanced Animated Line Below Title - Better mobile sizing */}
-          <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="h-1 sm:h-1.5 bg-gradient-to-r from-transparent via-white to-transparent rounded-full animate-expand-line-wide w-32 sm:w-auto"></div>
+          {/* Anjuro Logo - Closer spacing to Experience text */}
+          <div className="flex justify-center mt-16 sm:-mt-16 -mb-8 sm:-mb-20">
+            <div className="animate-logo-glow">
+              <img
+                src="/images/anjurologo.png"
+                alt="Anjuro Logo"
+                className="h-60 sm:h-72 md:h-72 lg:h-[19rem] object-contain drop-shadow-lg"
+              />
+            </div>
           </div>
 
-          {/* Enhanced Experience Description - Better mobile text sizing */}
-          
-       {/* Enhanced Experience Description */}
-<div className="text-gray-200 max-w-4xl mx-auto px-2 sm:px-0 mb-6 sm:mb-8 text-center font-light">
+          {/* Experience Title with Animated Underline */}
+          <h1 className={`${righteous.className} relative inline-block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg mb-3 sm:mb-2 hero-title`}>
+            <UnderlineAnimation>
+              Experience
+            </UnderlineAnimation>
+          </h1>
 
-  {/* Mobile */}
-  <p className="block sm:hidden text-sm leading-relaxed">
-    <TypingAnimation text="Driven by creativity and innovation, I turn ideas into meaningful digital experiences. Every experience fuels my growth and passion for creating with purpose." />
-  </p>
+          {/* Experience Description - Exact font and styling from service page */}
+          <div className="text-gray-200 max-w-4xl mx-auto px-2 sm:px-0 mb-6 sm:mb-8 text-center font-light">
+            {/* Mobile */}
+            <p className="block sm:hidden text-sm leading-relaxed">
+              <TypingAnimation text="Driven by creativity and innovation, I turn ideas into meaningful digital experiences. Every experience fuels my growth and passion for creating with purpose." />
+            </p>
 
-  {/* 
-    DESKTOP DESCRIPTION SPACING
-    ↑ Increase mt-8 to mt-10 or mt-12 for more space.
-    ↓ Decrease to mt-6 if it's too far.
-  */}
-  <div className="hidden sm:flex justify-center mt-8 text-base md:text-lg leading-loose">
-    <TypingAnimation
-      text={`Driven by creativity and innovation, I turn ideas into meaningful digital experiences.
+            {/* Desktop */}
+            <div className="hidden sm:flex justify-center mt-8 text-base md:text-lg leading-loose">
+              <TypingAnimation
+                text={`Driven by creativity and innovation, I turn ideas into meaningful digital experiences.
 Every experience fuels my growth and passion for creating with purpose.`}
-    />
-  </div>
+              />
+            </div>
+          </div>
 
-</div>
-          
-          {/* Scroll to explore text - Better mobile spacing */}
-         <div className="flex justify-center mt-16 sm:mt-28 lg:mt-40">
-  <p
-    className={`
-      text-center
-      text-white/70
-      text-xs sm:text-sm
-      tracking-[0.2em] sm:tracking-[0.3em]
-      animate-pulse
-      ${righteous.className}
-    `}
-  >
-    ✦ SCROLL TO EXPLORE ✦
-  </p>
-</div>
+          {/* Scroll to explore text */}
+          <div className="flex justify-center mt-16 sm:mt-28 lg:mt-40">
+            <p className={`text-center text-white/70 text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] animate-pulse ${righteous.className}`}>
+              ✦ SCROLL TO EXPLORE ✦
+            </p>
+          </div>
         </div>
       </section>
 
-      <main className="text-white overflow-x-hidden">
+      <main className="text-white">
         <div>
-          {/* Professional Experience Section - BACKGROUND IMAGE 2 */}
+          {/* Professional Experience Section */}
           <section
             className="py-16 md:py-24 lg:py-32 relative"
             style={{
@@ -615,17 +588,22 @@ Every experience fuels my growth and passion for creating with purpose.`}
                 </h2>
               </ScrollReveal>
 
-              <div className="space-y-6">
-                {experiences.map((exp, idx) => (
-                  <ExperienceCard key={exp.title} {...exp} index={idx} />
+              <div className="grid gap-6 md:gap-8">
+                {experiences.map((experience, index) => (
+                  <ExperienceCard
+                    key={experience.title}
+                    {...experience}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Seminars & Workshops Section - Glass effect background */}
-          <section className="py-16 md:py-24 lg:py-32 relative backdrop-blur-md" style={{ background: 'rgba(0, 0, 0, 0.15)' }}>
-            <div className="max-w-7xl mx-auto px-4 w-full">
+          {/* Seminars & Workshops Section */}
+          <section className="py-16 md:py-24 lg:py-32 relative">
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)' }} />
+            <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
               <ScrollReveal className="mb-12">
                 <h2 className={`${righteous.className} text-4xl sm:text-5xl md:text-6xl text-white drop-shadow-lg`}>
                   <UnderlineAnimation>
@@ -634,15 +612,19 @@ Every experience fuels my growth and passion for creating with purpose.`}
                 </h2>
               </ScrollReveal>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {seminarsWorkshops.map((seminar, idx) => (
-                  <WorkshopCard key={seminar.title} {...seminar} index={idx} />
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {seminarsWorkshops.map((workshop, index) => (
+                  <WorkshopCard
+                    key={workshop.title}
+                    {...workshop}
+                    index={index}
+                  />
                 ))}
               </div>
             </div>
           </section>
 
-          {/* What I Use Section - BACKGROUND IMAGE 3 */}
+          {/* What I Use Section */}
           <section
             className="py-16 md:py-24 lg:py-32 relative"
             style={{
@@ -653,49 +635,32 @@ Every experience fuels my growth and passion for creating with purpose.`}
               backgroundRepeat: 'no-repeat',
             }}
           >
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)' }} />
-
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)' }} />
             <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-              <ScrollReveal className="text-center mb-12 md:mb-16">
-                <h2 className={`${righteous.className} text-4xl sm:text-5xl md:text-6xl text-white mb-4 drop-shadow-lg`}>
+              <ScrollReveal className="mb-12">
+                <h2 className={`${righteous.className} text-4xl sm:text-5xl md:text-6xl text-white drop-shadow-lg`}>
                   <UnderlineAnimation>
                     What I Use
                   </UnderlineAnimation>
                 </h2>
-                <p className="text-lg md:text-xl text-gray-200">Tools and platforms that power my work</p>
               </ScrollReveal>
 
-              {/* Tools categories */}
               <div className="space-y-16">
-                {toolsData.map((category, categoryIdx) => (
-                  <ScrollReveal key={category.category} delay={categoryIdx * 0.1}>
-                    <div>
-                      <h3 className={`${righteous.className} text-2xl sm:text-3xl md:text-4xl mb-8 text-white text-center drop-shadow-lg`}>
-                        <WaveAnimation text={category.category} />
-                      </h3>
-
-                      {/* Centered Grid for Tools */}
-                      <div className="flex justify-center">
-                        <div className={`grid gap-3 md:gap-5 w-full justify-items-center ${
-                          category.tools.length <= 2 
-                            ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl' 
-                            : category.tools.length <= 3 
-                            ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-4xl'
-                            : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'
-                        }`}>
-                          {category.tools.map((tool, toolIdx) => (
-                            <div key={tool.name} className="w-full max-w-xs">
-                              <ToolCard
-                                name={tool.name}
-                                logo={tool.logo}
-                                index={toolIdx}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                {toolsData.map((category, categoryIndex) => (
+                  <div key={category.category}>
+                    <h3 className={`${righteous.className} text-2xl sm:text-3xl text-white mb-8 drop-shadow-lg`}>
+                      {category.category}
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                      {category.tools.map((tool, toolIndex) => (
+                        <ToolCard
+                          key={tool.name}
+                          {...tool}
+                          index={categoryIndex * 10 + toolIndex}
+                        />
+                      ))}
                     </div>
-                  </ScrollReveal>
+                  </div>
                 ))}
               </div>
             </div>
@@ -704,163 +669,6 @@ Every experience fuels my growth and passion for creating with purpose.`}
       </main>
 
       <Footer />
-
-      <style jsx>{`
-        .glass-frame {
-          backdrop-filter: blur(15px);
-          -webkit-backdrop-filter: blur(15px);
-        }
-
-        @keyframes logo-glow {
-          0%, 100% {
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
-            transform: scale(1);
-          }
-          50% {
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3));
-            transform: scale(1.02);
-          }
-        }
-
-        .animate-logo-glow {
-          animation: logo-glow 4s ease-in-out infinite;
-        }
-
-        @keyframes expand-line-wide {
-          0% {
-            width: 0;
-            opacity: 0;
-          }
-          50% {
-            width: 100%;
-            opacity: 1;
-          }
-          100% {
-            width: 100%;
-            opacity: 1;
-          }
-        }
-
-        .animate-expand-line-wide {
-          animation: expand-line-wide 1.5s ease-out forwards;
-        }
-
-        @keyframes underline-expand-enhanced {
-          0% {
-            width: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-          }
-          100% {
-            width: 100%;
-            left: 0;
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
-        .animate-underline-expand-enhanced {
-          animation: underline-expand-enhanced 1s ease-out forwards;
-        }
-
-        @keyframes wave {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-8px);
-          }
-        }
-
-        @keyframes pulse-glow {
-          0%, 100% {
-            opacity: 0;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-        }
-
-        .animate-pulse-glow {
-          animation: pulse-glow 2.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow-text {
-          0%, 100% {
-            opacity: 0.7;
-            text-shadow:
-              0 0 10px rgba(255,255,255,0.3),
-              0 0 20px rgba(255,255,255,0.2);
-          }
-          50% {
-            opacity: 1;
-            text-shadow:
-              0 0 20px rgba(255,255,255,0.6),
-              0 0 40px rgba(255,255,255,0.4);
-          }
-        }
-
-        .animate-pulse-glow {
-          animation: pulse-glow-text 2.5s ease-in-out infinite;
-        }
-
-        @supports (backdrop-filter: blur(1px)) {
-          .glass-frame {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-          }
-        }
-
-        /* ===========================================
-   HERO TITLE UNDERLINE
-   =========================================== */
-
-.hero-title::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -12px;
-  transform: translateX(-50%);
-  height: 4px;
-  width: 0;
-  border-radius: 999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.95),
-      transparent
-    );
-
-  box-shadow:
-    0 0 8px rgba(255,255,255,.6),
-    0 0 18px rgba(255,255,255,.35);
-
-  animation: heroUnderline 1.4s cubic-bezier(.22,.61,.36,1) forwards;
-}
-
-@keyframes heroUnderline {
-  0%{
-    width:0;
-    opacity:0;
-  }
-
-  60%{
-    width:55%;
-    opacity:1;
-  }
-
-  100%{
-    width:100%;
-    opacity:1;
-  }
-}
-      `}</style>
     </>
   );
 }
